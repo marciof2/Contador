@@ -18,30 +18,47 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: Text(
-          'Contador',
-          style: TextStyle(
-            fontSize: 25,
+        appBar: AppBar(
+          backgroundColor: Colors.blue,
+          title: Text(
+            'Contador',
+            style: TextStyle(
+              fontSize: 25,
+            ),
           ),
         ),
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Text(
-          '$cont',
-          style: TextStyle(fontSize: 40, color: Colors.black),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                '$cont',
+                style: TextStyle(fontSize: 40, color: Colors.black),
+              ),
+            ),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            cont = cont + 1;
-          });
-        },
-        child: Icon(Icons.add),
-      ),
-    );
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  cont = cont - 1;
+                });
+              },
+              child: Icon(Icons.backspace),
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  cont = cont + 1;
+                });
+              },
+              child: Icon(Icons.add),
+            ),
+          ],
+        ));
   }
 }
