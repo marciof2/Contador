@@ -4,6 +4,7 @@ void main() {
   runApp(
     MaterialApp(
       home: MyApp(),
+      theme: ThemeData(canvasColor: Colors.black),
     ),
   );
 }
@@ -16,21 +17,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int cont = 0;
 
-  Function add() {
+  add() {
     setState(
       () {
-        cont = cont + 1;
+        cont++;
       },
     );
   }
 
-  Function minus() {
+  minus() {
     setState(() {
       cont--;
     });
   }
 
-  Function reset() {
+  reset() {
     setState(() {
       cont = 0;
     });
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.grey[600],
         title: Text(
           'Contador',
           style: TextStyle(
@@ -55,7 +56,7 @@ class _MyAppState extends State<MyApp> {
             alignment: Alignment.center,
             child: Text(
               '$cont',
-              style: TextStyle(fontSize: 40, color: Colors.black),
+              style: TextStyle(fontSize: 40, color: Colors.white),
             ),
           ),
         ],
@@ -63,7 +64,7 @@ class _MyAppState extends State<MyApp> {
       bottomNavigationBar: Container(
         height: 100,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.grey[600],
           boxShadow: [
             BoxShadow(
                 spreadRadius: 1.0,
@@ -74,27 +75,29 @@ class _MyAppState extends State<MyApp> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            FloatingActionButton(
-              onPressed: () {
-                minus();
-              },
-              child: Icon(Icons.remove),
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                reset();
-              },
-              child: Icon(Icons.autorenew),
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                add();
-              },
-              child: Icon(Icons.add),
-            ),
+            CustomButton(minus, Icons.remove),
+            CustomButton(reset, Icons.autorenew),
+            CustomButton(add, Icons.add),
           ],
         ),
       ),
+    );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final Function funcao;
+  final IconData icone;
+
+  CustomButton(this.funcao, this.icone, {Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        funcao();
+      },
+      backgroundColor: Colors.grey[350],
+      child: Icon(icone),
     );
   }
 }
